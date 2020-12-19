@@ -78,13 +78,10 @@ def getItemSetTransactionListFromWordsList(wordsList):
 # - 遍历所有频繁项集的所有项
 # - 将每一项拆分成两个子集, 计算置信度, 将满足置信度的分割方式记录, 保存
 # - 返回所有频繁项, 所有保存的关联规则和相应的支持度和置信度
-def processApriori(data, minSupport=0.05, minConfidence=0.5):
+def processApriori(itemSet, transactionList, minSupport=0.05, minConfidence=0.5):
     freqSet = defaultdict(int)      # 用于记录所有项的频率, 包括组合项
     allFreqItemSet = dict()         # 用于记录所有的频繁项集: 频繁一项集, 频繁二项集
 
-    # 获取所有项和所有分词之后事务的列表, itemSet中的项是frozenset形式, 因为之后要处理组合项
-    wordsList = getWordsList(data)
-    itemSet, transactionList = getItemSetTransactionListFromWordsList(wordsList)
     frequentOneSet = generateFrequentItemSet(itemSet, transactionList, freqSet, minSupport)
     currentLSet = frequentOneSet
     k = 2
@@ -121,7 +118,10 @@ def processApriori(data, minSupport=0.05, minConfidence=0.5):
 
 # 分析数据并生成文件
 def analyzeData(data, minSupport, minConfidence, plagiarismThresh,itemFileName, ruleFileName, plagiarismFileName):
-    rItems, rRules = processApriori(data, minSupport, minConfidence)
+    # 获取所有项和所有分词之后事务的列表, itemSet中的项是frozenset形式, 因为之后要处理组合项
+    wordsList = getWordsList(data)
+    itemSet, transactionList = getItemSetTransactionListFromWordsList(wordsList)
+    rItems, rRules = processApriori(itemSet, transactionList, minSupport, minConfidence)
     itemFile = open(itemFileName, 'w+')
     ruleFile = open(ruleFileName, 'w+')
     plagiarismFile = open(plagiarismFileName, 'w+')
@@ -193,10 +193,97 @@ def findPlagiarismsFromItem(data, targetWords, thresh=0.98):
                 plagiarisms.add((matchedData[i][1] + 2, matchedData[j][1] + 2))
     return plagiarisms
 
+
+def getTransactionList(data):
+    transactionList = list()
+    for i in range(len(data)):
+        transaction = set(data.iloc[i])
+        transactionList.append(transaction)
+    return transactionList
+
+def getSupport(item, transactionList):
+    count = 0
+    for transaction in transactionList:
+        if item.issubset(transaction):
+            count += 1
+    return count
+
+def homework_1():
+    data = pd.read_csv('Titanic.csv')
+    itemA = {'3rd', 'Male', 'Adult', 'No'}
+    itemB = {'Crew', 'Male', 'Adult', 'Yes'}
+    itemC = {'Crew', 'Male', 'Adult', 'No'}
+    itemD = {'2nd', 'Male', 'Adult', 'No'}
+    transactionList = getTransactionList(data)
+    supportA = getSupport(itemA, transactionList)
+    supportB = getSupport(itemB, transactionList)
+    supportC = getSupport(itemC, transactionList)
+    supportD = getSupport(itemD, transactionList)
+    print("itemA: ", supportA)
+    print("itemB: ", supportB)
+    print("itemC: ", supportC)
+    print("itemD: ", supportD)
+
+def homework_2():
+    data = pd.read_csv('Titanic.csv')
+    itemA = {'1st', 'Female', 'Adult', 'Yes'}
+    itemB = {'2nd', 'Female', 'Adult', 'Yes'}
+    itemC = {'3rd', 'Male', 'Adult', 'No'}
+    itemD = {'Crew', 'Male', 'Adult', 'Yes'}
+    transactionList = getTransactionList(data)
+    supportA = getSupport(itemA, transactionList)
+    supportB = getSupport(itemB, transactionList)
+    supportC = getSupport(itemC, transactionList)
+    supportD = getSupport(itemD, transactionList)
+    print("itemA: ", supportA)
+    print("itemB: ", supportB)
+    print("itemC: ", supportC)
+    print("itemD: ", supportD)
+
+def homework_3():
+    data = pd.read_csv('Titanic.csv')
+    itemA = ({'Crew', 'No'}, {'Male'})
+    itemB = ({'3rd', 'No'}, {'Adult'})
+    itemC = ({'2nd'}, {'Adult'})
+    itemD = ({'3rd', 'Male', 'Adult'}, {'No'})
+    transactionList = getTransactionList(data)
+    confidenceA = getSupport(itemA[0].union(itemA[1]), transactionList) / getSupport(itemA[0], transactionList)
+    confidenceB = getSupport(itemB[0].union(itemB[1]), transactionList) / getSupport(itemB[0], transactionList)
+    confidenceC = getSupport(itemC[0].union(itemC[1]), transactionList) / getSupport(itemC[0], transactionList)
+    confidenceD = getSupport(itemD[0].union(itemD[1]), transactionList) / getSupport(itemD[0], transactionList)
+    liftA = confidenceA / (getSupport(itemA[1], transactionList) / len(transactionList))
+    liftB = confidenceB / (getSupport(itemB[1], transactionList) / len(transactionList))
+    liftC = confidenceC / (getSupport(itemC[1], transactionList) / len(transactionList))
+    liftD = confidenceD / (getSupport(itemD[1], transactionList) / len(transactionList))
+    print('liftA: ', liftA)
+    print('liftB: ', liftB)
+    print('liftC: ', liftC)
+    print('liftD: ', liftD)
+
+def homework_4():
+    data = pd.read_csv('Titanic.csv')
+    item = {'3rd', 'Male', 'Child', 'No'}
+    transactionList = getTransactionList(data)
+    support = getSupport(item, transactionList)
+    print(100 * support / len(transactionList))
+
+def homework_5():
+    data = pd.read_csv('Titanic.csv')
+    item = ({'Crew', 'No', 'Adult'}, {'Male'})
+    transactionList = getTransactionList(data)
+    support = getSupport(item[0].union(item[1]), transactionList)
+    confidence = support / getSupport(item[0], transactionList)
+    lift = confidence / (getSupport(item[1], transactionList) / len(transactionList))
+    print('support: ', 100 * support / len(transactionList))
+    print('confidence: ', 100 * confidence)
+    print('lift: ', lift)
+
 if __name__ == '__main__':
     data = pd.read_excel('data.xls')
     dataA = data[data.columns[0]]
     dataB = data[data.columns[1]]
     analyzeData(dataA, 0.1, 0.6, 0.98, 'itemA.txt', 'ruleA.txt', 'plagiarismsA.txt')
     analyzeData(dataB, 0.1, 0.6, 0.8, 'itemB.txt', 'ruleB.txt', 'plagiarismsB.txt')
+    # homework_5()
+
 
