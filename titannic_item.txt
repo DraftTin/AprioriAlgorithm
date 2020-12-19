@@ -1,0 +1,85 @@
+('Adult',) : 0.950477
+('3rd',) : 0.320763
+('1st',) : 0.147660
+('Yes',) : 0.323035
+('No',) : 0.676965
+('Female',) : 0.213539
+('2nd',) : 0.129487
+('Male',) : 0.786461
+('Child',) : 0.049523
+('Crew',) : 0.402090
+('Adult', '1st') : 0.144934
+('Crew', 'No') : 0.305770
+('3rd', 'Yes') : 0.080872
+('Adult', '2nd') : 0.118582
+('Child', 'Male') : 0.029078
+('1st', 'Yes') : 0.092231
+('Female', 'No') : 0.057247
+('Adult', 'Male') : 0.757383
+('Crew', 'Yes') : 0.096320
+('3rd', 'No') : 0.239891
+('Female', '3rd') : 0.089050
+('Female', 'Yes') : 0.156293
+('Female', '1st') : 0.065879
+('1st', 'No') : 0.055429
+('Female', '2nd') : 0.048160
+('1st', 'Male') : 0.081781
+('3rd', 'Child') : 0.035893
+('No', 'Child') : 0.023626
+('Female', 'Child') : 0.020445
+('Crew', 'Male') : 0.391640
+('2nd', 'Male') : 0.081327
+('Adult', 'Crew') : 0.402090
+('No', 'Male') : 0.619718
+('2nd', 'No') : 0.075875
+('Adult', '3rd') : 0.284871
+('3rd', 'Male') : 0.231713
+('Yes', 'Child') : 0.025897
+('Adult', 'No') : 0.653339
+('Yes', 'Male') : 0.166742
+('2nd', 'Yes') : 0.053612
+('Adult', 'Yes') : 0.297138
+('Adult', 'Female') : 0.193094
+('2nd', 'No', 'Male') : 0.069968
+('Adult', '1st', 'Yes') : 0.089505
+('Female', '3rd', 'No') : 0.048160
+('Adult', 'Female', '2nd') : 0.042254
+('3rd', 'Child', 'Male') : 0.021808
+('Adult', 'Crew', 'Male') : 0.391640
+('Adult', '3rd', 'Male') : 0.209905
+('Adult', 'Female', '3rd') : 0.074966
+('Female', '2nd', 'Yes') : 0.042254
+('Adult', '2nd', 'No') : 0.075875
+('Adult', '1st', 'Male') : 0.079509
+('Adult', '2nd', 'Male') : 0.076329
+('Adult', '1st', 'No') : 0.055429
+('1st', 'Yes', 'Male') : 0.028169
+('Adult', 'No', 'Male') : 0.603816
+('Adult', '3rd', 'Yes') : 0.068605
+('Crew', 'No', 'Male') : 0.304407
+('3rd', 'Yes', 'Male') : 0.039982
+('Adult', 'Female', 'No') : 0.049523
+('Female', '1st', 'Yes') : 0.064062
+('Adult', '2nd', 'Yes') : 0.042708
+('Adult', '3rd', 'No') : 0.216265
+('3rd', 'No', 'Child') : 0.023626
+('1st', 'No', 'Male') : 0.053612
+('Adult', 'Crew', 'No') : 0.305770
+('Adult', 'Female', '1st') : 0.065425
+('Adult', 'Female', 'Yes') : 0.143571
+('Crew', 'Yes', 'Male') : 0.087233
+('3rd', 'No', 'Male') : 0.191731
+('Adult', 'Yes', 'Male') : 0.153567
+('Adult', 'Crew', 'Yes') : 0.096320
+('Female', '3rd', 'Yes') : 0.040891
+('Adult', 'Female', '2nd', 'Yes') : 0.036347
+('Adult', '1st', 'Yes', 'Male') : 0.025897
+('Adult', '2nd', 'No', 'Male') : 0.069968
+('Adult', '1st', 'No', 'Male') : 0.053612
+('Adult', 'Female', '1st', 'Yes') : 0.063607
+('Adult', 'Female', '3rd', 'Yes') : 0.034530
+('Adult', 'Yes', 'Crew', 'Male') : 0.087233
+('Adult', '3rd', 'No', 'Male') : 0.175829
+('Adult', 'No', 'Crew', 'Male') : 0.304407
+('Adult', '3rd', 'Yes', 'Male') : 0.034075
+('Adult', 'Female', '3rd', 'No') : 0.040436
